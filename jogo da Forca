@@ -1,0 +1,43 @@
+import random
+
+def jogar():
+    print("**************************")
+    print("Bem-vinda ao jogo da forca")
+    print("                          ")
+    print("**************************")
+   
+    p = ["fogo", "agua", "terra", "ar"]
+    p_S = random.choice(p).upper()
+    l_a = ["_" for letra in p_S]
+   
+    enforcou = False
+    acertou = False
+    erros = 0
+    tentativa = 6
+   
+    print(f"Palavra: {''.join(l_a)}")
+   
+    while not enforcou and not acertou:
+        chute = input("Qual letra? ").strip().upper()
+       
+        if chute in p_S:
+            index = 0
+            for letra in p_S:
+                if chute == letra:
+                    l_a[index] = letra
+                index += 1
+        else:
+            erros += 1
+            print(f"Letra errada! Faltam {tentativa - erros} tentativas.")
+       
+        enforcou = erros == tentativa
+        acertou = "_" not in l_a
+        print(f"{''.join(l_a)}")
+   
+    if acertou:
+        print("Parabéns, você ganhou!")
+    else:
+        print(f"Você perdeu! A palavra era {p_S}.")
+
+if __name__ == "__main__":
+    jogar()
