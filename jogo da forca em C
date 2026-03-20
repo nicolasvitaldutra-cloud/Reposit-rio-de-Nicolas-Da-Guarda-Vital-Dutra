@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+#include <stdlib.h>
+#include <time.h>
+ 
+int main() {
+    char *palavras[] = {"abacaxi", "borboleta", "cachorro", "elefante", "girafa"};
+    char *palavra = palavras[rand () % 5];
+    int n = strlen(palavra), erros = 0, acertos = 0;
+    char vis[20] = {0}, c;
+ 
+    while (erros < 6 && acertos < n) {
+        printf("\n[");
+        for (int i = 0; i < n; i++) printf("%c ", vis[(int)palavra[i]] ? palavra[i] : '_');
+        printf("] Erros: %d/6\nLetra: ", erros);
+        scanf(" %c", &c); c = tolower(c);
+        if (vis[(int)c]) { puts("Ja tentou!"); continue; }
+        vis[(int)c] = 1;
+        int found = 0;
+        for (int i = 0; i < n; i++) if (palavra[i] == c) { acertos++; found = 1; }
+        if (!found) erros++;
+    }
+    printf(acertos == n ? "\nParabens! A palavra era: %s\n" : "\nPerdeu! A palavra era: %s\n", palavra);
+}
